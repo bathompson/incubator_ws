@@ -16,13 +16,16 @@
 #include <limits>
 
 class LED{
+  private:
+        int pin;
+        std::set<unsigned int> rosUsedPins;
     public:
         LED(unsigned int pin) {
-            if(usedPins.find(pin) != usedPins.end())
+            if(rosUsedPins.find(pin) != rosUsedPins.end())
             {
                 throw std::invalid_argument("Pin already in use");
             }
-            usedPins.insert(pin);
+            rosUsedPins.insert(pin);
             this->pin = pin;
             gpioSetMode(pin, PI_OUTPUT);
             gpioWrite(pin, 0);
@@ -36,9 +39,6 @@ class LED{
         void OFF() {
             gpioWrite(pin, 0);
         }
-    private:
-        int pin;
-        static std::set<unsigned int> usedPins;
 };
 
 class Heater: public LED {
@@ -54,7 +54,6 @@ class Fan: public LED {
 class Thermometer {
     public:
         Thermometer(const std::shared_ptr<std::string> path) : devicePath(path){}
-
         float read() {
             std::ifstream device(devicePath->c_str());
             std::string line;

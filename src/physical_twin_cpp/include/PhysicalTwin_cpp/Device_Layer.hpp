@@ -11,11 +11,11 @@
 class LED{
     public:
         LED(unsigned int pin) {
-            if(usedPins.find(pin) != usedPins.end())
+            if(rosUsedPins.find(pin) != rosUsedPins.end())
             {
                 throw std::invalid_argument("Pin already in use");
             }
-            usedPins.insert(pin);
+            rosUsedPins.insert(pin);
             this->pin = pin;
             gpioSetMode(pin, PI_OUTPUT);
             gpioWrite(pin, 0);
@@ -31,7 +31,7 @@ class LED{
         }
     private:
         int pin;
-        static std::set<unsigned int> usedPins;
+        static std::set<unsigned int> rosUsedPins;
 };
 
 class Heater: public LED {
