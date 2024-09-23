@@ -10,6 +10,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(incubator_interfaces REQUIRED)
 
+add_executable(sensor_driver_node src/Sensor_Driver_Node.cpp)
+ament_target_dependencies(sensor_driver_node rclcpp incubator_interfaces)
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights

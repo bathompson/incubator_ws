@@ -66,7 +66,7 @@ class Thermometer {
                 std::getline(device, line);
                 std::smatch m;
                 std::regex_search(line, m, r2);
-                float temp = std::stoi(m[2].str())/1000.0;
+                temp = std::stoi(m[2].str())/1000.0;
             }
             device.close();
             return temp;
