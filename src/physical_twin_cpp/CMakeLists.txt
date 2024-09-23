@@ -14,6 +14,12 @@ add_executable(sensor_driver_node src/Sensor_Driver_Node.cpp)
 ament_target_dependencies(sensor_driver_node rclcpp incubator_interfaces)
 
 target_link_libraries(sensor_driver_node pigpio)
+
+install(TARGETS
+  sensor_driver_node
+DESTINATION lib/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
