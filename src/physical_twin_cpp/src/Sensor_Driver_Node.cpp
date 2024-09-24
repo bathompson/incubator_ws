@@ -205,7 +205,7 @@ private: // Declares everything that follows as private
 
   void handle_FanOn_msg(incubator_interfaces::msg::DeviceCommand msg) {
     RCLCPP_INFO(this->get_logger(), "I heard: %s", msg.is_on ? "fan on" : "fan off");  // Echo incoming data
-    commandHeaterOn = msg.is_on;
+    commandFanOn = msg.is_on;
   }
     
   //================================================= 
