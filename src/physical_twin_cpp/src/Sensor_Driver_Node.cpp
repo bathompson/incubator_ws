@@ -18,26 +18,20 @@
 class LED{
   private:
         int pin;
-        std::set<unsigned int> rosUsedPins;
     public:
         LED(unsigned int pin) {
-            if(rosUsedPins.find(pin) != rosUsedPins.end())
-            {
-                throw std::invalid_argument("Pin already in use");
-            }
-            rosUsedPins.insert(pin);
-            this->pin = pin;
-            gpioSetMode(pin, PI_OUTPUT);
-            gpioWrite(pin, 0);
+          this->pin = pin;
+          gpioSetMode(pin, PI_OUTPUT);
+          gpioWrite(pin, 0);
         }
         bool getState() {
-            return gpioRead(pin);
+          return gpioRead(pin);
         }
         void ON() {
-            gpioWrite(pin, 1);
+          gpioWrite(pin, 1);
         }
         void OFF() {
-            gpioWrite(pin, 0);
+          gpioWrite(pin, 0);
         }
 };
 
