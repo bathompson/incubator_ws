@@ -24,6 +24,9 @@ class LED{
           gpioSetMode(pin, PI_OUTPUT);
           gpioWrite(pin, 0);
         }
+        ~LED() {
+          gpioWrite(pin, 0);
+        }
         bool getState() {
           return gpioRead(pin);
         }
@@ -149,7 +152,6 @@ private: // Declares everything that follows as private
   //=================================================  
 
   void handle_device_update() {   // copy and rename as appropriate for each timer
-    RCLCPP_INFO(this->get_logger(), "Handler for device update invoked");
     update_actuators();
     read_and_publish_state();
   }
