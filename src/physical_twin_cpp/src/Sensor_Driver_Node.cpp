@@ -74,9 +74,9 @@ class Sensor_Driver_Node : public rclcpp::Node // Rename class as appropriate
 public: // Declares everything that follows as public
   
   Sensor_Driver_Node() : Node("sensor_driver"), h(12), f(13), 
-  t1(std::make_shared<std::string>("/sys/bus/w1/devices/28-0623c31c3ad6")), 
-  t2(std::make_shared<std::string>("/sys/bus/w1/devices/28-0823c08d9067")),
-  t3(std::make_shared<std::string>("/sys/bus/w1/devices/28-0923b0b407a7"))
+  t1(std::make_shared<std::string>("/sys/bus/w1/devices/28-0623c31c3ad6/w1_slave")), 
+  t2(std::make_shared<std::string>("/sys/bus/w1/devices/28-0823c08d9067/w1_slave")),
+  t3(std::make_shared<std::string>("/sys/bus/w1/devices/28-0923b0b407a7/w1_slave"))
   // The name on the left should match the class name, and the name in quotes is the *run-time ROS2 node object*
   {
     // ----- example timer set up -------------
