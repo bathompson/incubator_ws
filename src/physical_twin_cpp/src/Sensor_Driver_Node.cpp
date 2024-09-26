@@ -5,17 +5,8 @@
 #include "incubator_interfaces/msg/device_command.hpp"
 #include "incubator_interfaces/msg/device_sensor_state.hpp"
 #include "PhysicalTwin_cpp/Device_Layer.hpp"
-#include <pigpio.h>
 #include <ctime>
-#include <string>
-#include <set>
-#include <stdexcept>
-#include <memory>
-#include <iostream>
-#include <fstream>
-#include <regex>
-#include <limits>
-    
+
 class Sensor_Driver_Node : public rclcpp::Node // Rename class as appropriate
 {
 
