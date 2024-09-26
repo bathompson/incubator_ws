@@ -9,29 +9,26 @@
 #include <limits>
 
 class LED{
+  private:
+        int pin;
     public:
         LED(unsigned int pin) {
-            if(rosUsedPins.find(pin) != rosUsedPins.end())
-            {
-                throw std::invalid_argument("Pin already in use");
-            }
-            rosUsedPins.insert(pin);
-            this->pin = pin;
-            gpioSetMode(pin, PI_OUTPUT);
-            gpioWrite(pin, 0);
+          this->pin = pin;
+          gpioSetMode(pin, PI_OUTPUT);
+          gpioWrite(pin, 0);
+        }
+        ~LED() {
+          gpioWrite(pin, 0);
         }
         bool getState() {
-            return gpioRead(pin);
+          return gpioRead(pin);
         }
         void ON() {
-            gpioWrite(pin, 1);
+          gpioWrite(pin, 1);
         }
         void OFF() {
-            gpioWrite(pin, 0);
+          gpioWrite(pin, 0);
         }
-    private:
-        int pin;
-        static std::set<unsigned int> rosUsedPins;
 };
 
 class Heater: public LED {
@@ -47,7 +44,6 @@ class Fan: public LED {
 class Thermometer {
     public:
         Thermometer(const std::shared_ptr<std::string> path) : devicePath(path){}
-
         float read() {
             std::ifstream device(devicePath->c_str());
             std::string line;
@@ -59,7 +55,7 @@ class Thermometer {
                 std::getline(device, line);
                 std::smatch m;
                 std::regex_search(line, m, r2);
-                float temp = std::stoi(m[2].str())/1000.0;
+                temp = std::stoi(m[2].str())/1000.0;
             }
             device.close();
             return temp;

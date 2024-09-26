@@ -10,8 +10,10 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(incubator_interfaces REQUIRED)
 
-add_executable(sensor_driver_node src/Sensor_Driver_Node.cpp)
+add_executable(sensor_driver_node src/Sensor_Driver_Node.cpp include/PhysicalTwin_cpp/Device_Layer.hpp)
 ament_target_dependencies(sensor_driver_node rclcpp incubator_interfaces)
+
+target_include_directories(sensor_driver_node PRIVATE include)
 
 target_link_libraries(sensor_driver_node pigpio)
 

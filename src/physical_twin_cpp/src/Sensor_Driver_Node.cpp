@@ -4,6 +4,7 @@
 // include interfaces for message type
 #include "incubator_interfaces/msg/device_command.hpp"
 #include "incubator_interfaces/msg/device_sensor_state.hpp"
+#include "PhysicalTwin_cpp/Device_Layer.hpp"
 #include <pigpio.h>
 #include <ctime>
 #include <string>
@@ -14,62 +15,6 @@
 #include <fstream>
 #include <regex>
 #include <limits>
-
-class LED{
-  private:
-        int pin;
-    public:
-        LED(unsigned int pin) {
-          this->pin = pin;
-          gpioSetMode(pin, PI_OUTPUT);
-          gpioWrite(pin, 0);
-        }
-        ~LED() {
-          gpioWrite(pin, 0);
-        }
-        bool getState() {
-          return gpioRead(pin);
-        }
-        void ON() {
-          gpioWrite(pin, 1);
-        }
-        void OFF() {
-          gpioWrite(pin, 0);
-        }
-};
-
-class Heater: public LED {
-    public:
-        Heater(unsigned int pin) : LED(pin){}
-};
-
-class Fan: public LED {
-    public:
-        Fan(unsigned int pin) : LED(pin){}
-};
-
-class Thermometer {
-    public:
-        Thermometer(const std::shared_ptr<std::string> path) : devicePath(path){}
-        float read() {
-            std::ifstream device(devicePath->c_str());
-            std::string line;
-            const std::regex r1("([0-9a-f]{2} ){9}: crc=[0-9a-f]{2} YES");
-            const std::regex r2("([0-9a-f]{2} ){9}t=([+-]?[0-9]+)");
-            float temp = -std::numeric_limits<float>::infinity();
-            std::getline(device, line);
-            if(std::regex_match(line, r1)) {
-                std::getline(device, line);
-                std::smatch m;
-                std::regex_search(line, m, r2);
-                temp = std::stoi(m[2].str())/1000.0;
-            }
-            device.close();
-            return temp;
-        }
-    private:
-        const std::shared_ptr<std::string> devicePath;
-};
     
 class Sensor_Driver_Node : public rclcpp::Node // Rename class as appropriate
 {
