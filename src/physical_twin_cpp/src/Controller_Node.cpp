@@ -73,10 +73,12 @@ private: // Declares everything that follows as private
     ctrl_step();
 
     print_device_state(msg);
+
+    send_commands();
   }
 
   void print_device_state(incubator_interfaces::msg::DeviceSensorState msg) {
-    RCLCPP_INFO(this->get_logger(), "time=%lu, exec_interval=%d, elapsed=%lu, heater_on=%s, fan_on=%s, room_temp=%.02f, box_temp=%.02f, state=%s", msg.timestamp, msg.execution_interval, msg.elapsed_time, msg.is_heater_on ? "On" : "Off", msg.is_fan_on?"On":"Off", msg.internal_temp, msg.t3, print_state(sm.cur_state));
+    RCLCPP_INFO(this->get_logger(), "time=%lu, exec_interval=%d, elapsed=%lu, heater_on=%s, fan_on=%s, room_temp=%.02f, box_temp=%.02f, state=%s, nextTime=%lu", msg.timestamp, msg.execution_interval, msg.elapsed_time, msg.is_heater_on ? "On" : "Off", msg.is_fan_on?"On":"Off", msg.t3, msg.internal_temp, print_state(sm.cur_state), sm.printNextTime());
   }
 
   const char *print_state(IncubatorState state) {

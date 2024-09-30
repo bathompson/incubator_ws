@@ -33,13 +33,20 @@ class Controller_Model_SM {
             actuatorEffort = 0;
         }
 
+        unsigned long printNextTime() {
+            if(nextTime) {
+                return *nextTime;
+            }
+            return 0;
+        }
+
         void step(unsigned long time, float in_temp) {
             if(cur_state == IncubatorState::CoolingDown) {
-                if(in_temp <= desired_temp) {
+                if(in_temp <= desired_temp - lower_bound) {
                     cur_state = IncubatorState::Heating;
                     cached_heater_on = true;
                     actuatorEffort++;
-                    nextTime = {time + heating_gap};
+                    nextTime = {time + heating_time};
                 }
             }
             else if(cur_state == IncubatorState::Heating) {
@@ -53,20 +60,22 @@ class Controller_Model_SM {
                     cached_heater_on = false;
                     actuatorEffort++;
                     nextTime = {};
-                } else if(cur_state == IncubatorState::Waiting) {
+                }
+            } else if(cur_state == IncubatorState::Waiting) {
                     if(nextTime && *nextTime <= time) {
-                        cur_state = IncubatorState::Heating;
-                        cached_heater_on = true;
-                        actuatorEffort++;
-                        nextTime = {time + heating_time};
-                    }
-                    else {
-                        cur_state = IncubatorState::CoolingDown;
-                        cached_heater_on = false;
-                        nextTime = {};
+                        if (in_temp <= desired_temp) {
+                            cur_state = IncubatorState::Heating;
+                            cached_heater_on = true;
+                            actuatorEffort++;
+                            nextTime = time + heating_time;
+                        }
+                        else {
+                            cur_state = IncubatorState::CoolingDown;
+                            cached_heater_on = false;
+                            nextTime = {};
+                        }
                     }
                 }
-            }
         }
 
 };
