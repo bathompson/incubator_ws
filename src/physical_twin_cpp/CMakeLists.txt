@@ -13,12 +13,17 @@ find_package(incubator_interfaces REQUIRED)
 add_executable(sensor_driver_node src/Sensor_Driver_Node.cpp include/PhysicalTwin_cpp/Device_Layer.hpp)
 ament_target_dependencies(sensor_driver_node rclcpp incubator_interfaces)
 
+add_executable(controller_node src/Controller_Node.cpp include/PhysicalTwin_cpp/Controller_Model_SM.hpp)
+ament_target_dependencies(controller_node rclcpp incubator_interfaces)
+
 target_include_directories(sensor_driver_node PRIVATE include)
+target_include_directories(controller_node PRIVATE include)
 
 target_link_libraries(sensor_driver_node pigpio)
 
 install(TARGETS
   sensor_driver_node
+  controller_node
 DESTINATION lib/${PROJECT_NAME}
 )
 
