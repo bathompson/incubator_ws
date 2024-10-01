@@ -19,7 +19,7 @@ class Controller_Model_SM {
         unsigned int actuatorEffort;
         Controller_Model_SM(float desired_temp, float lower_bound, 
         unsigned long heating_time, unsigned long heating_gap) {
-            if(0 >= desired_temp || 0 >= lower_bound) {
+            if(0 >= desired_temp || 0 >= lower_bound || 0 >= heating_time || 0 >= heating_gap) {
                 throw new std::invalid_argument("All parameters must be greater than zero");
             }
             this->desired_temp = desired_temp;
@@ -32,6 +32,7 @@ class Controller_Model_SM {
             cached_heater_on = false;
             actuatorEffort = 0;
         }
+        Controller_Model_SM(): desired_temp(0), lower_bound(0), heating_time(0), heating_gap(0){}
 
         unsigned long printNextTime() {
             if(nextTime) {
@@ -41,6 +42,11 @@ class Controller_Model_SM {
         }
 
         void step(unsigned long time, float in_temp) {
+            
+            if(0 >= desired_temp || 0 >= lower_bound || 0 >= heating_time || 0 >= heating_gap) {
+                throw new std::invalid_argument("All parameters must be greater than zero");
+            }
+
             if(cur_state == IncubatorState::CoolingDown) {
                 if(in_temp <= desired_temp - lower_bound) {
                     cur_state = IncubatorState::Heating;

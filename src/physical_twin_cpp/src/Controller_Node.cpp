@@ -12,7 +12,7 @@ class Controller_Node : public rclcpp::Node // Rename class as appropriate
 
 public: // Declares everything that follows as public
   
-  Controller_Node() : Node("controller_node"), desired_temp(35.0), lower_bound(5.0), heating_time(20), heating_gap(30), sm(desired_temp, lower_bound, heating_time, heating_gap) // The name on the left should match the class name, and the name in quotes is the *run-time ROS2 node object*
+  Controller_Node() : Node("controller_node")// The name on the left should match the class name, and the name in quotes is the *run-time ROS2 node object*
   {
 
     // ----- example publisher set up -------------
@@ -41,6 +41,15 @@ public: // Declares everything that follows as public
     RCLCPP_INFO(this->get_logger(), "My_Cpp_Node infrastructure set up"); // Rename as necessary
 
     //--------------- user initialization code ---------------
+    this->declare_parameter("desired_temp", 35.0f);
+    this->declare_parameter("lower_bound", 5.0f);
+    this->declare_parameter("heating_time", 20);
+    this->declare_parameter("heating_gap", 30);
+    desired_temp = this->get_parameter("desired_temp").as_double();
+    lower_bound = this->get_parameter("lower_bound").as_double();
+    heating_time = this->get_parameter("heating_time").as_int();
+    heating_gap = this->get_parameter("heating_gap").as_int();
+    sm = Controller_Model_SM(desired_temp, lower_bound, heating_time, heating_gap);
     
     // invoke initialize entry point
     initialize();

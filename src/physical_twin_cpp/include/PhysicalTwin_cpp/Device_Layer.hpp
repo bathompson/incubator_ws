@@ -51,6 +51,11 @@ class Thermometer {
           return Thermometer(t.devicePath);
         }
         float read() {
+
+          if(devicePath == "") {
+            throw new std::invalid_argument("Invalid Device Path!");
+          }
+
             std::ifstream device(devicePath.c_str());
             std::string line;
             const std::regex r1("([0-9a-f]{2} ){9}: crc=[0-9a-f]{2} YES");
