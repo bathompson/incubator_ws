@@ -12,10 +12,7 @@ class Sensor_Driver_Node : public rclcpp::Node // Rename class as appropriate
 
 public: // Declares everything that follows as public
   
-  Sensor_Driver_Node() : Node("sensor_driver"), h(12), f(13), 
-  t1(std::make_shared<std::string>("/sys/bus/w1/devices/28-0623c31c3ad6/w1_slave")), 
-  t2(std::make_shared<std::string>("/sys/bus/w1/devices/28-0923b0b407a7/w1_slave")),
-  t3(std::make_shared<std::string>("/sys/bus/w1/devices/28-0823c08d9067/w1_slave"))
+  Sensor_Driver_Node() : Node("sensor_driver")
   // The name on the left should match the class name, and the name in quotes is the *run-time ROS2 node object*
   {
     // ----- example timer set up -------------
@@ -56,6 +53,16 @@ public: // Declares everything that follows as public
 
     RCLCPP_INFO(this->get_logger(), "My_Cpp_Node infrastructure set up"); // Rename as necessary
 
+    this->declare_parameter("heater_pin", 12);
+    this->declare_parameter("fan_pin", 13);
+    this->declare_parameter("t1_path", "/sys/bus/w1/devices/28-0623c31c3ad6/w1_slave");
+    this->declare_parameter("t2_path", "/sys/bus/w1/devices/28-0923b0b407a7/w1_slave");
+    this->declare_parameter("t3_path", "/sys/bus/w1/devices/28-0823c08d9067/w1_slave");
+    h = Heater(this->get_parameter("heater_pin").as_int());
+    f = Fan(this->get_parameter("fan_pin").as_int());
+    t1 = Thermometer(this->get_parameter("t1_path").as_string());
+    t2 = Thermometer(this->get_parameter("t2_path").as_string());
+    t3 = Thermometer(this->get_parameter("t3_path").as_string());
     //--------------- user initialization code ---------------
 
     // invoke initialize entry point

@@ -34,18 +34,24 @@ class LED{
 class Heater: public LED {
     public:
         Heater(unsigned int pin) : LED(pin){}
+        Heater() : LED(0){}
 };
 
 class Fan: public LED {
     public:
         Fan(unsigned int pin) : LED(pin){}
+        Fan() : LED(0){}
 };
 
 class Thermometer {
     public:
-        Thermometer(const std::shared_ptr<std::string> path) : devicePath(path){}
+        Thermometer(const std::string path) : devicePath(path){}
+        Thermometer() : devicePath(""){}
+        Thermometer operator=(const Thermometer &t) {
+          return Thermometer(t.devicePath);
+        }
         float read() {
-            std::ifstream device(devicePath->c_str());
+            std::ifstream device(devicePath.c_str());
             std::string line;
             const std::regex r1("([0-9a-f]{2} ){9}: crc=[0-9a-f]{2} YES");
             const std::regex r2("([0-9a-f]{2} ){9}t=([+-]?[0-9]+)");
@@ -61,5 +67,5 @@ class Thermometer {
             return temp;
         }
     private:
-        const std::shared_ptr<std::string> devicePath;
+        const std::string devicePath;
 };
