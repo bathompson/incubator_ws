@@ -6,7 +6,9 @@
         "chrono": "cpp",
         "complex": "cpp",
         "tuple": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "functional": "cpp",
+        "iostream": "cpp"
     },
     "cmake.sourceDirectory": "/home/thompson/incubator_ws/src/incubator_interfaces"
 }
