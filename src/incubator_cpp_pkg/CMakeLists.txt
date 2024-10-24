@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.8)
+project(incubator_cpp_pkg)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(incubator_cpp_pkg_interfaces REQUIRED)
+
+include_directories(include)
+
+add_executable(Incubator_i_Instance_pt_ptp_device_manager_exe include/incubator_cpp_pkg/user_headers/Device_Layer.hpp src/base_code/Incubator_i_Instance_pt_ptp_device_manager_runner.cpp src/user_code/Incubator_i_Instance_pt_ptp_device_manager_src.cpp src/base_code/Incubator_i_Instance_pt_ptp_device_manager_base_src.cpp)
+ament_target_dependencies(Incubator_i_Instance_pt_ptp_device_manager_exe rclcpp incubator_cpp_pkg_interfaces)
+target_link_libraries(Incubator_i_Instance_pt_ptp_device_manager_exe pigpio)
+
+add_executable(Incubator_i_Instance_pt_ptp_controller_exe include/incubator_cpp_pkg/user_headers/Controller_Model_SM.hpp src/base_code/Incubator_i_Instance_pt_ptp_controller_runner.cpp src/user_code/Incubator_i_Instance_pt_ptp_controller_src.cpp src/base_code/Incubator_i_Instance_pt_ptp_controller_base_src.cpp)
+ament_target_dependencies(Incubator_i_Instance_pt_ptp_controller_exe rclcpp incubator_cpp_pkg_interfaces)
+
+add_executable(Incubator_i_Instance_dt_dtp_idbr_exe src/base_code/Incubator_i_Instance_dt_dtp_idbr_runner.cpp src/user_code/Incubator_i_Instance_dt_dtp_idbr_src.cpp src/base_code/Incubator_i_Instance_dt_dtp_idbr_base_src.cpp)
+ament_target_dependencies(Incubator_i_Instance_dt_dtp_idbr_exe rclcpp incubator_cpp_pkg_interfaces)
+
+install(TARGETS
+    Incubator_i_Instance_pt_ptp_device_manager_exe
+    Incubator_i_Instance_pt_ptp_controller_exe
+    Incubator_i_Instance_dt_dtp_idbr_exe
+    DESTINATION lib/${PROJECT_NAME}
+)
+
+ament_package()

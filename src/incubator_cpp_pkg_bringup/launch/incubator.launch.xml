@@ -1,0 +1,14 @@
+<launch>
+
+    <node pkg="incubator_cpp_pkg" exec="Incubator_i_Instance_pt_ptp_device_manager_exe">
+    </node>
+
+
+    <node pkg="incubator_cpp_pkg" exec="Incubator_i_Instance_pt_ptp_controller_exe">
+    </node>
+
+
+    <node pkg="incubator_cpp_pkg" exec="Incubator_i_Instance_dt_dtp_idbr_exe">
+    </node>
+
+</launch>

@@ -3,12 +3,12 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
                 "/opt/ros/humble/include/**",
-                "~/incubator_ws/install/incubator_interfaces/include/**",
-                "/home/thompson/vcpkg/installed/x64-linux/include"
+                "${workspaceFolder}/incubator_cpp_pkg/include/**",
+                "../install/incubator_cpp_pkg_interfaces/include/**"
             ],
             "defines": [],
+            "compilerPath": "/usr/bin/gcc",
             "cStandard": "c17",
             "cppStandard": "gnu++17",
             "intelliSenseMode": "linux-gcc-x64"

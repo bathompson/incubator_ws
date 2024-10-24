@@ -1,0 +1,9 @@
+Secondsi cur_time
+Boolean heater_on
+Boolean fan_on
+ControllerState current_state
+Secondsi next_time
+DegreesCi target_temp
+DegreesCi lower_bound
+Secondsi heating_time
+Secondsi heating_gap
