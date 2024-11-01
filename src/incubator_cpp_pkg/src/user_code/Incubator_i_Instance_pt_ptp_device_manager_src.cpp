@@ -34,7 +34,7 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
     bool commandFanOn = get_request_fan_on()->data;
     bool commandHeaterOn = get_request_heater_on()->data;
     
-
+    PRINT_INFO("Checking commands...");
     if(commandFanOn && !f.getState()) {
       f.ON();
     }
@@ -49,6 +49,7 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
       h.OFF();
     }
 
+    PRINT_INFO("Prepping to send message");
     auto msg = incubator_cpp_pkg_interfaces::msg::DeviceStatei();
 
     msg.t1_time.value.data = (unsigned long)time(NULL);
@@ -62,6 +63,8 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
     msg.fan_on.data = f.getState();
     msg.execution_interval.value.data = sensorReadPeriod;
     msg.elapsed_time.value.data = ((unsigned long)time(NULL)) - timeStart;
+    PRINT_INFO("Sending message");
     put_device_state(msg);
+    PRINT_INFO("Leaving Time Triggered");
 }
 
