@@ -8,6 +8,7 @@
 
 void sigintHandler(int c)
 {
+  std::cout << "In signal handler" << std::endl;
   gpioTerminate();
   exit(0);
 }
