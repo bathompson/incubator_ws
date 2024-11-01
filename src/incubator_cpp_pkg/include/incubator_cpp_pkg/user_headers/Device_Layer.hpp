@@ -50,8 +50,10 @@ class Thermometer {
     public:
         Thermometer(const std::string path) : devicePath(path){}
         Thermometer() : devicePath(""){}
-        Thermometer operator=(const Thermometer &t) {
-          return Thermometer(t.devicePath);
+        Thermometer &operator=(const Thermometer &t) {
+          this->devicePath = t.devicePath;
+
+          return *this;
         }
         float read() {
 
@@ -75,5 +77,5 @@ class Thermometer {
             return temp;
         }
     private:
-        const std::string devicePath;
+        std::string devicePath;
 };
