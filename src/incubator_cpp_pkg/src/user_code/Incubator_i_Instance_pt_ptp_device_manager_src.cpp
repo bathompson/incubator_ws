@@ -20,7 +20,7 @@ void Incubator_i_Instance_pt_ptp_device_manager::initialize()
     auto t1Path = this->get_parameter("t1_path").as_string();
     auto t2Path = this->get_parameter("t2_path").as_string();
     auto t3Path = this->get_parameter("t3_path").as_string();
-    PRINT_INFO("heater pin: %d\tfan pin: %d\tt1 path: %s\tt2 path: %s\tt3 path: %s", heaterPin, fanPin, t1Path, t2Path, t3Path);
+    PRINT_INFO("heater pin: %d\tfan pin: %d\tt1 path: %s\tt2 path: %s\tt3 path: %s", heaterPin, fanPin, t1Path.c_str(), t2Path.c_str(), t3Path.c_str());
 
     h = Heater(heaterPin);
     f = Fan(fanPin);
