@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <cstring>
 #include <set>
 #include <pigpio.h>
 #include <stdexcept>
@@ -54,7 +55,7 @@ class Thermometer {
         }
         float read() {
 
-          if(devicePath.c_str() == "") {
+          if(strcmp(devicePath.c_str(), "")) {
             throw new std::invalid_argument("Invalid Device Path!");
           }
 
