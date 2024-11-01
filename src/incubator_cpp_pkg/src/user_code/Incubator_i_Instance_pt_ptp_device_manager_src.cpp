@@ -31,8 +31,14 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
 {
     // Handle communication
     PRINT_INFO("Time Trigger invoked");
-    bool commandFanOn = get_request_fan_on()->data;
-    bool commandHeaterOn = get_request_heater_on()->data;
+    bool commandFanOn = false;
+    bool commandHeaterOn = false;
+    auto requestFanOnMsg = get_request_fan_on();
+    auto requestHeaterOnMsg = get_request_heater_on();
+    if(requestFanOnMsg)
+      bool commandFanOn = requestFanOnMsg->data;
+    if(requestHeaterOnMsg)
+      bool commandHeaterOn = requestHeaterOnMsg->data;
     
     PRINT_INFO("Checking commands...");
     if(commandFanOn && !f.getState()) {
