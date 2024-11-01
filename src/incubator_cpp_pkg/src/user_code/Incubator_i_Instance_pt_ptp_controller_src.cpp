@@ -1,5 +1,5 @@
 #include "incubator_cpp_pkg/user_headers/Incubator_i_Instance_pt_ptp_controller_src.hpp"
-
+#include "incubator_cpp_pkg/user_headers/util.hpp"
 //=================================================
 //  I n i t i a l i z e    E n t r y    P o i n t
 //=================================================
@@ -17,13 +17,6 @@ void Incubator_i_Instance_pt_ptp_controller::initialize()
     heating_time = this->get_parameter("heating_time").as_int();
     heating_gap = this->get_parameter("heating_gap").as_int();
     sm = Controller_Model_SM(desired_temp, lower_bound, heating_time, heating_gap);
-}
-
-uint8_t convertState(IncubatorState s) {
-    if(s == IncubatorState::Heating) return incubator_cpp_pkg_interfaces::msg::ControllerState::CONTROLLER_STATE_HEATING;
-    if(s == IncubatorState::CoolingDown) return incubator_cpp_pkg_interfaces::msg::ControllerState::CONTROLLER_STATE_COOLING;
-    else return incubator_cpp_pkg_interfaces::msg::ControllerState::CONTROLLER_STATE_WAITING;
-
 }
 
 //=================================================
@@ -58,7 +51,7 @@ void Incubator_i_Instance_pt_ptp_controller::handle_device_state(const incubator
     controllerStatusMsg.cur_time.value.data = (unsigned long)time(NULL);
     controllerStatusMsg.heater_on.data = heater_ctrl;
     controllerStatusMsg.fan_on.data = fan_ctrl;
-    controllerStatusMsg.current_state.controller_state = convertState(sm.cur_state);
+    controllerStatusMsg.current_state.controller_state = convertIncubatorStateToRosEnum(sm.cur_state);
     controllerStatusMsg.next_time.value.data = sm.nextTime ? *sm.nextTime : -1;
     controllerStatusMsg.target_temp.value.data = sm.desired_temp;
     controllerStatusMsg.lower_bound.value.data = sm.lower_bound;

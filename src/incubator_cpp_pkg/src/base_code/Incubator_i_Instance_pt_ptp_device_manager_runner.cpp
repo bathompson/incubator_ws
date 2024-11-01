@@ -1,5 +1,5 @@
 #include "incubator_cpp_pkg/user_headers/Incubator_i_Instance_pt_ptp_device_manager_src.hpp"
-
+#include <pigpio.h>
 //=================================================
 //  D O   N O T   E D I T   T H I S   F I L E
 //=================================================
@@ -16,6 +16,7 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
     auto executor = rclcpp::executors::MultiThreadedExecutor();
+    gpioInitialise();
     auto node = std::make_shared<Incubator_i_Instance_pt_ptp_device_manager>();
     executor.add_node(node);
     executor.spin();
