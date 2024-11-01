@@ -26,6 +26,7 @@ void Incubator_i_Instance_pt_ptp_controller::handle_device_state(const incubator
 {
     // Handle device_state msg
     // Record sensor data
+    PRINT_INFO("Recieved device state message");
     box_air_temp = msg->average_internal_temp.value.data;
     room_temp = msg->t3.value.data;
 
