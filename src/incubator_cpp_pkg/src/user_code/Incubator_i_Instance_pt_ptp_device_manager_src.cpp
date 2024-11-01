@@ -69,10 +69,13 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
     auto msg = incubator_cpp_pkg_interfaces::msg::DeviceStatei();
     msg.t1_time.value.data = (unsigned long)time(NULL);
     msg.t1.value.data = t1.read();
+    PRINT_INFO("t1 is %.02f", msg.t1.value.data);
     msg.t2_time.value.data = (unsigned long)time(NULL);
     msg.t2.value.data = t2.read();
+    PRINT_INFO("t2 is %.02f", msg.t2.value.data);
     msg.t3_time.value.data = (unsigned long)time(NULL);
     msg.t3.value.data = t3.read();
+    PRINT_INFO("t3 is %.02f", msg.t3.value.data);
     msg.average_internal_temp.value.data = (msg.t1.value.data + msg.t2.value.data)/2.0;
     msg.heater_on.data = h.getState();
     msg.fan_on.data = f.getState();
