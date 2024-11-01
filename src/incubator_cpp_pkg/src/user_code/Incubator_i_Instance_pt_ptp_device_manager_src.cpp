@@ -53,16 +53,20 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
     }
     
     if(commandFanOn && !f.getState()) {
+      PRINT_INFO("Turning fan on...");
       f.ON();
     }
     else if (!commandFanOn && f.getState()) {
+      PRINT_INFO("Turning fan off...");
       f.OFF();
     }
 
     if(commandHeaterOn && !h.getState()) {
+      PRINT_INFO("Turning heater on...");
       h.ON();
     }
     else if(!commandHeaterOn && h.getState()) {
+      PRINT_INFO("Turning heater off...");
       h.OFF();
     }
 
