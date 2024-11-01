@@ -1,11 +1,22 @@
 #include "incubator_cpp_pkg/user_headers/Incubator_i_Instance_pt_ptp_device_manager_src.hpp"
 #include <ctime>
+#include <pigpio.h>
+#include <signal.h>
 //=================================================
 //  I n i t i a l i z e    E n t r y    P o i n t
 //=================================================
+
+void sigintHandler(int c)
+{
+  gpioTerminate();
+  exit(0);
+}
+
 void Incubator_i_Instance_pt_ptp_device_manager::initialize()
 {
     PRINT_INFO("Initialize Entry Point invoked");
+
+    signal(SIGINT, sigintHandler);
 
     // Initialize the node
     this->declare_parameter("heater_pin", 12);
