@@ -58,6 +58,8 @@ void Incubator_i_Instance_pt_ptp_controller::handle_device_state(const incubator
     controllerStatusMsg.heating_time.value.data = sm.heating_time;
     controllerStatusMsg.heating_gap.value.data = sm.heating_gap;
 
+    put_controller_status(controllerStatusMsg);
+
 }
 
 void Incubator_i_Instance_pt_ptp_controller::handle_param_updates(const incubator_cpp_pkg_interfaces::msg::ClosedLoopParamUpdatesi::SharedPtr msg)

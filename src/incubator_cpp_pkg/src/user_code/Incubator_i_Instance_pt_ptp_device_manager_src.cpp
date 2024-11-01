@@ -30,6 +30,7 @@ void Incubator_i_Instance_pt_ptp_device_manager::initialize()
 void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
 {
     // Handle communication
+    PRINT_INFO("Time Trigger invoked");
     bool commandFanOn = get_request_fan_on()->data;
     bool commandHeaterOn = get_request_heater_on()->data;
     

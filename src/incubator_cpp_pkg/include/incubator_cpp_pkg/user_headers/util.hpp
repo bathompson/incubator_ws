@@ -33,6 +33,7 @@ std::string convertIncubatorStateToString(IncubatorState s)
         case IncubatorState::CoolingDown:
             return "Cooling Down";
         case IncubatorState::Waiting:
+        default:
             return "Waiting";
     }
 }
