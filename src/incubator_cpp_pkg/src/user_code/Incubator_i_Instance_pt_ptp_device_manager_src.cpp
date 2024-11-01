@@ -10,9 +10,9 @@ void Incubator_i_Instance_pt_ptp_device_manager::initialize()
     // Initialize the node
     this->declare_parameter("heater_pin", 12);
     this->declare_parameter("fan_pin", 13);
-    this->declare_parameter<std::string>("t1_path", "/sys/bus/w1/devices/28-0623c31c3ad6/w1_slave");
-    this->declare_parameter<std::string>("t2_path", "/sys/bus/w1/devices/28-0923b0b407a7/w1_slave");
-    this->declare_parameter<std::string>("t3_path", "/sys/bus/w1/devices/28-0823c08d9067/w1_slave");
+    this->declare_parameter("t1_path", "/sys/bus/w1/devices/28-0623c31c3ad6/w1_slave");
+    this->declare_parameter("t2_path", "/sys/bus/w1/devices/28-0923b0b407a7/w1_slave");
+    this->declare_parameter("t3_path", "/sys/bus/w1/devices/28-0823c08d9067/w1_slave");
 
     auto heaterPin = this->get_parameter("heater_pin").as_int();
     auto fanPin = this->get_parameter("fan_pin").as_int();
@@ -20,7 +20,7 @@ void Incubator_i_Instance_pt_ptp_device_manager::initialize()
     auto t1Path = this->get_parameter("t1_path").as_string();
     auto t2Path = this->get_parameter("t2_path").as_string();
     auto t3Path = this->get_parameter("t3_path").as_string();
-    PRINT_INFO("heater pin: %d\tfan pin: %d\tt1 path: %s\tt2 path: %d\tt3 path%d", heaterPin, fanPin, t1Path, t2Path, t3Path);
+    PRINT_INFO("heater pin: %d\tfan pin: %d\tt1 path: %s\tt2 path: %s\tt3 path: %s", heaterPin, fanPin, t1Path, t2Path, t3Path);
 
     h = Heater(heaterPin);
     f = Fan(fanPin);
