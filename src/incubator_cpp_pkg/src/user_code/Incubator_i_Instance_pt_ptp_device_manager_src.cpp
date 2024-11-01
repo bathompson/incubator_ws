@@ -14,11 +14,19 @@ void Incubator_i_Instance_pt_ptp_device_manager::initialize()
     this->declare_parameter("t2_path", "/sys/bus/w1/devices/28-0923b0b407a7/w1_slave");
     this->declare_parameter("t3_path", "/sys/bus/w1/devices/28-0823c08d9067/w1_slave");
 
-    h = Heater(this->get_parameter("heater_pin").as_int());
-    f = Fan(this->get_parameter("fan_pin").as_int());
-    t1 = Thermometer(this->get_parameter("t1_path").as_string());
-    t2 = Thermometer(this->get_parameter("t2_path").as_string());
-    t3 = Thermometer(this->get_parameter("t3_path").as_string());
+    auto heaterPin = this->get_parameter("heater_pin").as_int();
+    auto fanPin = this->get_parameter("fan_pin").as_int();
+
+    auto t1Path = this->get_parameter("t1_path").as_string();
+    auto t2Path = this->get_parameter("t2_path").as_string();
+    auto t3Path = this->get_parameter("t3_path").as_string();
+    PRINT_INFO("heater pin: %d\tfan pin: %d\tt1 path: %s\tt2 path: %d\tt3 path%d", heaterPin, fanPin, t1Path, t2Path, t3Path);
+
+    h = Heater(heaterPin);
+    f = Fan(fanPin);
+    t1 = Thermometer(t1Path);
+    t2 = Thermometer(t2Path);
+    t3 = Thermometer(t3Path);
 
     sensorReadPeriod = 3; //TODO: Assign this to a variable during codegen so it may be obtained programatically
     timeStart = (unsigned long)time(NULL);
