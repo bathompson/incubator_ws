@@ -59,6 +59,11 @@ void Incubator_i_Instance_pt_ptp_controller::handle_device_state(const incubator
     controllerStatusMsg.heating_time.value.data = sm.heating_time;
     controllerStatusMsg.heating_gap.value.data = sm.heating_gap;
 
+    PRINT_INFO("cur_time: %lu, heater_on: %s, fan_on: %s, controller_state: %s, next_time: %lu, target_temp: %.02f, lower_bound: %.02f, heating_time: %lu, heating_gap: %lu",
+                controllerStatusMsg.cur_time.value.data, controllerStatusMsg.heater_on.data == true ? "true" : "false", controllerStatusMsg.fan_on.data == true ? "true" : "false",
+                convertIncubatorStateRosEnumToString(controllerStatusMsg.current_state.controller_state), controllerStatusMsg.next_time.value.data, 
+                controllerStatusMsg.target_temp.value.data, controllerStatusMsg.lower_bound.value.data, controllerStatusMsg.heating_time.value.data, controllerStatusMsg.heating_gap.value.data);
+
     put_controller_status(controllerStatusMsg);
 
 }
