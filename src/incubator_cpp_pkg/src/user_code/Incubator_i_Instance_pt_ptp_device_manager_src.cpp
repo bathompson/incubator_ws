@@ -20,7 +20,6 @@ void Incubator_i_Instance_pt_ptp_device_manager::initialize()
     auto t1Path = this->get_parameter("t1_path").as_string();
     auto t2Path = this->get_parameter("t2_path").as_string();
     auto t3Path = this->get_parameter("t3_path").as_string();
-    PRINT_INFO("heater pin: %d\tfan pin: %d\tt1 path: %s\tt2 path: %s\tt3 path: %s", heaterPin, fanPin, t1Path.c_str(), t2Path.c_str(), t3Path.c_str());
 
     h = Heater(heaterPin);
     f = Fan(fanPin);
@@ -61,32 +60,18 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
       h.OFF();
     }
 
-    PRINT_INFO("Prepping to send message");
     auto msg = incubator_cpp_pkg_interfaces::msg::DeviceStatei();
-    PRINT_INFO("Putting in T1 time");
     msg.t1_time.value.data = (unsigned long)time(NULL);
-    PRINT_INFO("Putting in T1 data");
     msg.t1.value.data = t1.read();
-    PRINT_INFO("Putting in T2 time");
     msg.t2_time.value.data = (unsigned long)time(NULL);
-    PRINT_INFO("Putting in T2 data");
     msg.t2.value.data = t2.read();
-    PRINT_INFO("Putting in T3 time");
     msg.t3_time.value.data = (unsigned long)time(NULL);
-    PRINT_INFO("Putting in T3 data");
     msg.t3.value.data = t3.read();
-    PRINT_INFO("Putting in average temp");
     msg.average_internal_temp.value.data = (msg.t1.value.data + msg.t2.value.data)/2.0;
-    PRINT_INFO("Putting in heater state");
     msg.heater_on.data = h.getState();
-    PRINT_INFO("Putting in fan state");
     msg.fan_on.data = f.getState();
-    PRINT_INFO("Putting in sensor read period");
     msg.execution_interval.value.data = sensorReadPeriod;
-    PRINT_INFO("Putting in elapsed time");
     msg.elapsed_time.value.data = ((unsigned long)time(NULL)) - timeStart;
-    PRINT_INFO("Sending message");
     put_device_state(msg);
-    PRINT_INFO("Leaving Time Triggered");
 }
 
