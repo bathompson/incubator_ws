@@ -57,20 +57,20 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
 
     PRINT_INFO("The fan is %s and the heater is %s", curFanState ? "on" : "off", curHeaterState ? "on" : "off");
     
-    if(commandFanOn && !f.getState()) {
+    if(commandFanOn) {
       PRINT_INFO("Turning fan on...");
       f.ON();
     }
-    else if (!commandFanOn && f.getState()) {
+    else if (!commandFanOn) {
       PRINT_INFO("Turning fan off...");
       f.OFF();
     }
 
-    if(commandHeaterOn && !h.getState()) {
+    if(commandHeaterOn) {
       PRINT_INFO("Turning heater on...");
       h.ON();
     }
-    else if(!commandHeaterOn && h.getState()) {
+    else if(!commandHeaterOn) {
       PRINT_INFO("Turning heater off...");
       h.OFF();
     }
