@@ -5,6 +5,12 @@ class Incubator_i_Instance_pt_ptp_device_manager : public Incubator_i_Instance_p
 public:
     Incubator_i_Instance_pt_ptp_device_manager();
 
+    void takeDownDevices()
+    {
+        h.OFF();
+        f.OFF();
+    }
+
 private:
     //=================================================
     //  I n i t i a l i z e    E n t r y    P o i n t
