@@ -28,9 +28,11 @@ class LED{
         }
         void ON() {
           gpioWrite(pin, 1);
+          std::cout << "I am turning pin " << pin << " on" <<std::endl;
         }
         void OFF() {
           gpioWrite(pin, 0);
+          std::cout << "I am turning pin " << pin << " off" <<std::endl;
         }
 };
 
