@@ -51,6 +51,11 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
       bool commandHeaterOn = requestHeaterOnMsg->data;
       PRINT_INFO("I have a comman heater on message and the message is %s", commandHeaterOn ? "true" : "false");
     }
+
+    bool curFanState = f.getState();
+    bool curHeaterState = h.getState();
+
+    PRINT_INFO("The fan is %s and the heater is %s", curFanState ? "on" : "off", curHeaterState ? "on" : "off");
     
     if(commandFanOn && !f.getState()) {
       PRINT_INFO("Turning fan on...");
