@@ -54,7 +54,7 @@ class Thermometer {
         }
         float read() {
 
-          if(devicePath == "") {
+          if(devicePath.c_str() == "") {
             throw new std::invalid_argument("Invalid Device Path!");
           }
 
