@@ -42,9 +42,15 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
     auto requestFanOnMsg = get_request_fan_on();
     auto requestHeaterOnMsg = get_request_heater_on();
     if(requestFanOnMsg)
+    {
       bool commandFanOn = requestFanOnMsg->data;
+      PRINT_INFO("I have a command fan on message and the message is %s", commandFanOn ? "true" : "false");
+    }
     if(requestHeaterOnMsg)
+    {
       bool commandHeaterOn = requestHeaterOnMsg->data;
+      PRINT_INFO("I have a comman heater on message and the message is %s", commandHeaterOn ? "true" : "false");
+    }
     
     if(commandFanOn && !f.getState()) {
       f.ON();
