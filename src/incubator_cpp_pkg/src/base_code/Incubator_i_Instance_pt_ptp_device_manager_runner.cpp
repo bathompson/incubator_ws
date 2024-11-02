@@ -13,13 +13,11 @@ Incubator_i_Instance_pt_ptp_device_manager::Incubator_i_Instance_pt_ptp_device_m
     PRINT_INFO("Incubator_i_Instance_pt_ptp_device_manager infrastructure set up");
 }
 
-std::shared_ptr<Incubator_i_Instance_pt_ptp_device_manager> mainNode;
+static bool exitProgram = false;
 
 void sigintHandler(int c)
 {
-    mainNode->takeDownDevices();
-    gpioTerminate();
-    exit(0);
+    exitProgram = true;
 }
 
 int main(int argc, char **argv)
@@ -28,10 +26,11 @@ int main(int argc, char **argv)
     auto executor = rclcpp::executors::MultiThreadedExecutor();
     gpioInitialise();
     auto node = std::make_shared<Incubator_i_Instance_pt_ptp_device_manager>();
-    mainNode = node;
     signal(SIGINT, sigintHandler);
     executor.add_node(node);
-    executor.spin();
+    while(!exitProgram)
+        executor.spin_once();
+    node->takeDownDevices();
     rclcpp::shutdown();
     return 0;
 }
