@@ -18,6 +18,7 @@ void Incubator_i_Instance_pt_ptp_device_manager::initialize()
     t1DataPublisher = this->create_publisher<sensor_msgs::msg::Temperature>("t1_temp", 10);
     t2DataPublisher = this->create_publisher<sensor_msgs::msg::Temperature>("t2_temp", 10);
     t3DataPublisher = this->create_publisher<sensor_msgs::msg::Temperature>("t3_temp", 10);
+    heatBedStatusPublisher = this->create_publisher<sensor_msgs::msg::Illuminance>("heat_bed_status", 10);
 
     auto heaterPin = this->get_parameter("heater_pin").as_int();
     auto fanPin = this->get_parameter("fan_pin").as_int();
