@@ -83,6 +83,7 @@ void Incubator_i_Instance_pt_ptp_device_manager::timeTriggered()
     msg.execution_interval.value.data = sensorReadPeriod;
     msg.elapsed_time.value.data = ((unsigned long)time(NULL)) - timeStart;
     put_device_state(msg);
+    convertAndSendRosTempSensorMsg(msg);
 }
 
 void Incubator_i_Instance_pt_ptp_device_manager::convertAndSendRosTempSensorMsg(incubator_cpp_pkg_interfaces::msg::DeviceStatei msg)
