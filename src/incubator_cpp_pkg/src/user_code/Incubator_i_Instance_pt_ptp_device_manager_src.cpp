@@ -92,6 +92,8 @@ void Incubator_i_Instance_pt_ptp_device_manager::convertAndSendRosTempSensorMsg(
   auto t2Msg = sensor_msgs::msg::Temperature();
   auto t3Msg = sensor_msgs::msg::Temperature();
 
+  auto heatBedMsg = sensor_msgs::msg::Illuminance();
+
   t1Msg.header.stamp.sec = msg.t1_time.value.data;
   t1Msg.header.stamp.nanosec = 0;
   t1Msg.header.frame_id = "t1";
@@ -110,8 +112,18 @@ void Incubator_i_Instance_pt_ptp_device_manager::convertAndSendRosTempSensorMsg(
   t3Msg.temperature = msg.t3.value.data;
   t3Msg.variance = 0;
 
+  heatBedMsg.header.stamp.sec = msg.elapsed_time.value.data+timeStart;
+  heatBedMsg.header.stamp.nanosec = 0;
+  heatBedMsg.header.frame_id = "heat_bed";
+  if(msg.heater_on.data)
+    heatBedMsg.illuminance = 1000;
+  else
+    heatBedMsg.illuminance = 0;
+  heatBedMsg.variance = 0;
+
   t1DataPublisher->publish(t1Msg);
   t2DataPublisher->publish(t2Msg);
   t3DataPublisher->publish(t3Msg);
+  heatBedStatusPublisher->publish(heatBedMsg);
 }
 
