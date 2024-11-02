@@ -77,10 +77,10 @@
         <child link="floor"/>
         <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
-    <joint name="right_wall_t1" type="fixed">
-        <parent link="right_wall"/>
+    <joint name="left_wall_t1" type="fixed">
+        <parent link="left_wall"/>
         <child link="t1"/>
-        <origin xyz="-${side_depth/2.0+0.0254} 0 ${side_height/2.0}" rpy="0 0 0"/>
+        <origin xyz="${side_depth/2.0+0.0254} 0 ${side_height/2.0}" rpy="0 0 0"/>
     </joint>
     <joint name="front_wall_t2" type="fixed">
         <parent link="front_wall"/>
@@ -95,7 +95,7 @@
     <joint name="floor_heat_bed" type="fixed">
         <parent link="floor"/>
         <child link="heat_bed"/>
-        <origin xyz="0 0 ${side_depth/2.0}"/>
+        <origin xyz="0 0 ${side_depth+0.01}"/>
     </joint>
 
 
