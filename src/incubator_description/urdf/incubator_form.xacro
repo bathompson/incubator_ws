@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<robot name="incubator" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="side_length" value="0.5334" />
+    <xacro:property name="side_width" value="0.3683"/>
+    <xacro:property name="side_height" value="0.3302"/>
+    <xacro:property name="side_depth" value="0.0381"/>
+
+    <xacro:macro name="wall" params="prefix length rotation">
+        <link name="${prefix}_wall">
+            <visual>
+                <geometry>
+                    <box size="${length} ${side_depth} ${side_height}"/>    
+                </geometry>
+                    <origin xyz="0 0 ${side_height/2.0}" rpy="0 0 ${rotation}" />
+                    <material name="white" />
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="${length} ${side_depth} ${side_height}"/>    
+                </geometry>
+                <origin xyz="0 0 ${side_height/2.0}" rpy="0 0 0" />
+            </collision>
+        </link>
+    </xacro:macro>
+    <xacro:macro name="thermometer" params="num">
+        <link name="t${num}">
+            <visual>
+                <geometry>
+                    <sphere radius="0.0254"/>
+                </geometry>
+                <origin xyz="0 0 ${side_height/2.0}"/>
+                <material name="black"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <sphere radius="0.0254"/>
+                </geometry>
+                <origin xyz="0 0 ${side_height/2.0}"/>
+            </collision>
+        </link>
+    </xacro:macro>
+
+    <link name="base_link" />
+    <xacro:wall prefix="front" length="${side_length}" rotation="0"/>
+    <xacro:wall prefix="back" length="${side_length}" rotation="0"/>
+    <xacro:wall prefix="left" length="${side_width - side_depth}" rotation="-${pi/2.0}" />
+    <xacro:wall prefix="right" length="${side_width - side_depth}" rotation="${pi/2.0}" />
+    <xacro:thermometer num="1" />
+    <xacro:thermometer num="2"/>
+    <xacro:thermometer num="3"/>
+    <link name="floor">
+        <visual>
+            <geometry>
+                <box size="${side_length - 2.0*side_depth} ${side_width - side_depth} ${side_depth}"/>    
+            </geometry>
+                <origin xyz="0 0 ${side_depth/2.0}" rpy="0 0 0" />
+                <material name="white" />
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${side_length - 2.0*side_depth} ${side_width - side_depth} ${side_depth}"/>    
+            </geometry>
+            <origin xyz="0 0 ${side_depth/2.0}" rpy="0 0 0" />
+        </collision>
+    </link>
+
+    <joint name="base_link_front_wall" type="fixed">
+        <parent link="base_link" />
+        <child link="front_wall" />
+        <origin xyz="0 ${side_width/2.0} 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="base_link_back_wall" type="fixed">
+        <parent link="base_link" />
+        <child link="back_wall" />
+        <origin xyz="0 -${side_width/2.0} 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="base_link_left_wall" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_wall"/>
+        <origin xyz="-${(side_length/2.0) - (side_depth/2.0)} 0 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="base_link_right_wall" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_wall"/>
+        <origin xyz="${(side_length/2.0) - (side_depth/2.0)} 0 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="base_link_floor" type="fixed">
+        <parent link="base_link"/>
+        <child link="floor"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+    <joint name="right_wall_t1" type="fixed">
+        <parent link="right_wall"/>
+        <child link="t1"/>
+        <origin xyz="-${side_depth/2.0+0.0254} 0 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="front_wall_t2" type="fixed">
+        <parent link="front_wall"/>
+        <child link="t2"/>
+        <origin xyz="0 -${side_depth/2.0+0.0254} 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="front_wall_t3" type="fixed">
+        <parent link="front_wall"/>
+        <child link="t3"/>
+        <origin xyz="0 ${side_depth/2.0+0.0254} 0" rpy="0 0 0"/>
+    </joint>
+
+
+</robot>
