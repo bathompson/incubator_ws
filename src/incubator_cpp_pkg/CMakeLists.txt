@@ -29,7 +29,6 @@ install(TARGETS
     Incubator_i_Instance_pt_ptp_device_manager_exe
     Incubator_i_Instance_pt_ptp_controller_exe
     Incubator_i_Instance_dt_dtp_idbr_exe
-    Incubator_i_Instance_dt_dtp_pkf_exe
     Incubator_i_Instance_dt_dtp_loam_exe
     DESTINATION lib/${PROJECT_NAME}
 )
