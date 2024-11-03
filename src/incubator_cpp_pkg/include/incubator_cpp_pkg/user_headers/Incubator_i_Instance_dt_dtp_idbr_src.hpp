@@ -1,4 +1,5 @@
 #include "incubator_cpp_pkg/base_headers/Incubator_i_Instance_dt_dtp_idbr_base_src.hpp"
+#include "incubator_cpp_pkg/user_headers/influxdb.hpp"
 
 class Incubator_i_Instance_dt_dtp_idbr : public Incubator_i_Instance_dt_dtp_idbr_base
 {
@@ -22,5 +23,6 @@ private:
     //=================================================
     //  Include any additional declarations here
     //=================================================
+    std::shared_ptr<influxdb_cpp::server_info> si;
 
 };
