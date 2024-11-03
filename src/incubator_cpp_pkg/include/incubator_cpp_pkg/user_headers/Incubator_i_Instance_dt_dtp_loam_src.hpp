@@ -19,5 +19,7 @@ private:
     //=================================================
     //  Include any additional declarations here
     //=================================================
-
+    float desired_target_temperature;
+    float error_threshold;
+    float cur_target_temp;
 };
