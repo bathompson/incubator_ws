@@ -19,6 +19,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   msg/DeviceStatei.msg
   msg/ControllerState.msg
   msg/ControllerStatusi.msg
+  msg/KalmanPredictioni.msg
   msg/Empty.msg
 )
 

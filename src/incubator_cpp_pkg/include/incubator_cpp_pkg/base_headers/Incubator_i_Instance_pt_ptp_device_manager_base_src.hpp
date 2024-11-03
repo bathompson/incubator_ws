@@ -49,6 +49,7 @@ private:
 
     rclcpp::Publisher<incubator_cpp_pkg_interfaces::msg::DeviceStatei>::SharedPtr Incubator_i_Instance_pt_ptp_device_manager_device_state_publisher_1;
     rclcpp::Publisher<incubator_cpp_pkg_interfaces::msg::DeviceStatei>::SharedPtr Incubator_i_Instance_pt_ptp_device_manager_device_state_publisher_2;
+    rclcpp::Publisher<incubator_cpp_pkg_interfaces::msg::DeviceStatei>::SharedPtr Incubator_i_Instance_pt_ptp_device_manager_device_state_publisher_3;
 
     //=================================================
     //  C a l l b a c k   a n d   T i m e r

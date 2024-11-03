@@ -25,6 +25,10 @@ Incubator_i_Instance_pt_ptp_device_manager_base::Incubator_i_Instance_pt_ptp_dev
         1);
 
     Incubator_i_Instance_pt_ptp_device_manager_device_state_publisher_2 = this->create_publisher<incubator_cpp_pkg_interfaces::msg::DeviceStatei>(
+        "Incubator_i_Instance_dt_dtp_pkf_device_state",
+        1);
+
+    Incubator_i_Instance_pt_ptp_device_manager_device_state_publisher_3 = this->create_publisher<incubator_cpp_pkg_interfaces::msg::DeviceStatei>(
         "Incubator_i_Instance_pt_ptp_controller_device_state",
         1);
 
@@ -60,5 +64,6 @@ void Incubator_i_Instance_pt_ptp_device_manager_base::put_device_state(incubator
 {
     Incubator_i_Instance_pt_ptp_device_manager_device_state_publisher_1->publish(msg);
     Incubator_i_Instance_pt_ptp_device_manager_device_state_publisher_2->publish(msg);
+    Incubator_i_Instance_pt_ptp_device_manager_device_state_publisher_3->publish(msg);
 }
 

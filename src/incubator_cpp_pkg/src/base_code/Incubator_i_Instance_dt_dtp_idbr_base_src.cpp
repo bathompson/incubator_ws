@@ -20,4 +20,14 @@ Incubator_i_Instance_dt_dtp_idbr_base::Incubator_i_Instance_dt_dtp_idbr_base() :
         1,
         std::bind(&Incubator_i_Instance_dt_dtp_idbr_base::handle_device_state, this, std::placeholders::_1), subscription_options_);
 
+    Incubator_i_Instance_dt_dtp_idbr_kalman_prediction_subscription_ = this->create_subscription<incubator_cpp_pkg_interfaces::msg::KalmanPredictioni>(
+        "Incubator_i_Instance_dt_dtp_idbr_kalman_prediction",
+        1,
+        std::bind(&Incubator_i_Instance_dt_dtp_idbr_base::handle_kalman_prediction, this, std::placeholders::_1), subscription_options_);
+
+    Incubator_i_Instance_dt_dtp_idbr_param_updates_subscription_ = this->create_subscription<incubator_cpp_pkg_interfaces::msg::ClosedLoopParamUpdatesi>(
+        "Incubator_i_Instance_dt_dtp_idbr_param_updates",
+        1,
+        std::bind(&Incubator_i_Instance_dt_dtp_idbr_base::handle_param_updates, this, std::placeholders::_1), subscription_options_);
+
 }

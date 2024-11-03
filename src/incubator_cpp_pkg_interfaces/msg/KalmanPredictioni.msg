@@ -1,0 +1,4 @@
+DegreesCi t_heater
+DegreesCi prediction_error
+DegreesCi average_temperature
+Secondsi prediction_time

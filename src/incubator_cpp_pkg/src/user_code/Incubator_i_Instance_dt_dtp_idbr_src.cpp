@@ -23,3 +23,13 @@ void Incubator_i_Instance_dt_dtp_idbr::handle_device_state(const incubator_cpp_p
     // Handle device_state msg
 }
 
+void Incubator_i_Instance_dt_dtp_idbr::handle_kalman_prediction(const incubator_cpp_pkg_interfaces::msg::KalmanPredictioni::SharedPtr msg)
+{
+    // Handle kalman_prediction msg
+}
+
+void Incubator_i_Instance_dt_dtp_idbr::handle_param_updates(const incubator_cpp_pkg_interfaces::msg::ClosedLoopParamUpdatesi::SharedPtr msg)
+{
+    // Handle param_updates msg
+}
+
