@@ -73,5 +73,6 @@ void Incubator_i_Instance_pt_ptp_controller::handle_param_updates(const incubato
     // Handle param_updates msg
     RCLCPP_INFO(this->get_logger(), "Setting param updates");
     sm.desired_temp = msg->target_temperature.value.data;
+    desired_temp = sm.desired_temp;
 }
 

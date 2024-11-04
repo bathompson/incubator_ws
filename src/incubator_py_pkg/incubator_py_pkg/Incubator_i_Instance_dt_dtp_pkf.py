@@ -58,7 +58,7 @@ class Incubator_i_Instance_dt_dtp_pkf(Node):   # Rename class as appropriate
      self.Incubator_i_Instance_dt_dtp_pkf_kalman_prediction_publisher_2.publish(msg)
 
   def handle_device_state(self, msg: DeviceStatei):
-     self.in_heater = 1.0 if msg.heater_on.value.data else 0.0
+     self.in_heater = 1.0 if msg.heater_on.data else 0.0
      self.in_room_T = msg.t3.value.data
 
      self.in_T = msg.average_internal_temp.value.data
@@ -77,7 +77,9 @@ class Incubator_i_Instance_dt_dtp_pkf(Node):   # Rename class as appropriate
 
      kPredMsg.t_heater.value.data = self.T_heater
      kPredMsg.prediction_error.value.data = self.in_T - T
-     kPredMsg.prediction_time.value.data = time.time()
+     kPredMsg.prediction_time.value.data = int(time.time())
+
+     self.put_kalman_prediction(kPredMsg)
 
   def initialize (self):
     self.get_logger().info("Initialize Entry Point invoked")
@@ -87,12 +89,12 @@ class Incubator_i_Instance_dt_dtp_pkf(Node):   # Rename class as appropriate
     self.declare_parameter("std-dev", 0.001)
     self.declare_parameter("Theater-covariance-init", 0.001)
     self.declare_parameter("T-covariance-init", 0.001)
-    self.declare_parameter("C-air", 11887.5303364444)
-    self.declare_parameter("G-box", 3.424977682558059)
-    self.declare_parameter("C-heater", 0.9630753696384039)
-    self.declare_parameter("G-heater", 0.02434578571082508)
-    self.declare_parameter("V-heater", 16.366024387562575)
-    self.declare_parameter("I-heater", 138.908294203994316)
+    self.declare_parameter("C-air", 267.55929458)
+    self.declare_parameter("G-box", 0.5763498)
+    self.declare_parameter("C-heater", 329.25376821)
+    self.declare_parameter("G-heater", 1.67053237)
+    self.declare_parameter("V-heater", 12.15579391)
+    self.declare_parameter("I-heater", 1.53551347)
     self.declare_parameter("initial-heat-temperature", 21.0)
     self.declare_parameter("initial-box-temperature", 21.0)
     
